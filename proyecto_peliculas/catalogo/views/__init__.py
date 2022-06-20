@@ -1,0 +1,2 @@
+from .actor_views import ActorDetailView
+from .pelicula_views import PeliculaDetailView,PeliculaTemplateView
