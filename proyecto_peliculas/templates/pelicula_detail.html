@@ -1,30 +1,55 @@
 {% extends 'home.html' %}
-{% load static %}
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'principal.css' %}">
     <title>Pelicula</title>
 </head>
 <body>
     {%block content%}
-    <div class ="container-pelicula">
-        <div class="row">
-            <div class="col-6">
-                <div class="pelicula-imagen">
-                    
-                </div>
+    <div class ="detalle-pelicula">
+        <div class ="card-pelicula">
+            <div class="card-pelicula-izquierda">
+                <img src="/media/{{pelicula.imagen}}" class="card-pelicula-imagen" alt="Sin imagen">
             </div>
-            <div class="col-6">
-                Actores: 
+            <div class= "card-pelicula-derecha">
+                <p class= "card-pelicula-texto"> Director: {{object.director}} </p>
+                    <p class= "card-pelicula-texto"> Actores: 
                     {%for actor in object.actores.all%}
                         {{actor.nombre}} {{actor.apellido}},
-                    {% endfor %}
-                    <p> Puntuación: {{object.puntaje}} </p>
+                    {% endfor %} </p>
+                <p class="card-pelicula-texto"> Resumen: 
+                    {{object.resumen}}
+                </p>
+                <p class= "card-pelicula-texto"> Puntuación: </p>
+                <div class="estrellas"> 
+                    {%if puntaje == 1%}
+                        <i class="bi bi-star-fill"></i>
+                    {%elif puntaje == 2%}
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    {%elif puntaje == 3%}
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    {%elif puntaje == 4%}
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    {%elif puntaje == 5%}
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    {%endif%}
+                </div>
             </div>
         </div>
     </div>
