@@ -12,6 +12,9 @@ class PeliculaDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         puntaje = self.get_object().puntaje
         context["puntaje"] = puntaje
+        #categorias = self.get_object().categorias
+        #context["categorias"] = categorias
+        #El puntaje se envia por context para poder vincularlo con las estrellas en el template
         return context
 
 class PeliculaTemplateView(TemplateView):
@@ -19,6 +22,7 @@ class PeliculaTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        peliculas = Pelicula.objects.all()
+        #"-puntaje" para que el orden sea de mayor a menor
+        peliculas = Pelicula.objects.all().order_by("-puntaje")[:12]
         context["peliculas"] = peliculas
         return context

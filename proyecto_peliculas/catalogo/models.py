@@ -8,7 +8,7 @@ class Actor(models.Model):
     apellido = models.CharField(max_length=100)
     foto = models.ImageField(upload_to="media/actores")
     fecha_nacimiento = models.DateField()
-    nacionalidad = CountryField()
+    nacionalidad = CountryField() #libreria para facilitar la carga de los paises
     biografia = models.CharField(max_length=300,null=True,blank = True)
 
     def __str__(self):

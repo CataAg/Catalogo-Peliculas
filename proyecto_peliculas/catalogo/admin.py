@@ -1,35 +1,34 @@
 from django.contrib import admin
 from catalogo.models import Actor, Director, Pelicula, Categoria, Critica
 
-# Register your models here.
+@admin.register(Actor)
 class ActorAdmin(admin.ModelAdmin):
-    #actions = [cambiar_nombre]
-    pass
-admin.site.register(Actor,ActorAdmin)
+    list_display=["nombre","apellido","fecha_nacimiento","nacionalidad"]
+#admin.site.register(Actor,ActorAdmin)
 
 @admin.register(Director)
 class DirectorAdmin(admin.ModelAdmin):
-    pass
+    list_display=["nombre","apellido","fecha_nacimiento","nacionalidad"]
 
 @admin.register(Pelicula)
 class PeliculaAdmin(admin.ModelAdmin):
-    pass
+    list_display=["titulo","director","puntaje","fecha_lanzamiento"]
 
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
-    pass
+    list_display=["nombre"]
+    
+@admin.action(description="Habilitar comentario")
+def habilitar_comentario(modeladmin,request,queryset):
+    queryset.update(habilitado=True)
 
 @admin.register(Critica)
 class CriticaAdmin(admin.ModelAdmin):
-    pass
+    list_display= ["comentario","habilitado","puntaje","pelicula"]
+    actions=[habilitar_comentario]
 
-#admin actions
-@admin.action(description="pasar a uppercase")
-def cambiar_nombre(modeadmin,request,queryset):
-    pass
-    #for actor in queryset:
-    #    actor.nombre = actor.nombre.upper()
-    #    actor.save()
-
-#las actions se indican por medio de una lista
-#actions =[action_nombre]
+    #quito el permiso de crear criticas desde la pagina admin
+    def has_add_permission(self, request, obj=None):
+        return False
+    
+    

@@ -19,13 +19,19 @@
             </div>
             <div class= "card-pelicula-derecha">
                 <p class= "card-pelicula-texto"> Director: {{object.director}} </p>
-                    <p class= "card-pelicula-texto"> Actores: 
+                    <p class= "card-pelicula-texto"> Elenco: 
                     {%for actor in object.actores.all%}
                         {{actor.nombre}} {{actor.apellido}},
                     {% endfor %} </p>
                 <p class="card-pelicula-texto"> Resumen: 
                     {{object.resumen}}
                 </p>
+                <p class="card-pelicula-texto">
+                    {%for categoria in object.categorias.all%}
+                       <a href="#" class="btn btn-secondary"> {{categoria.nombre}}</a>
+                    {%endfor%}
+                </p>
+                {#Para mejorar#}
                 <p class= "card-pelicula-texto"> Puntuación: </p>
                 <div class="estrellas"> 
                     {%if puntaje == 1%}
