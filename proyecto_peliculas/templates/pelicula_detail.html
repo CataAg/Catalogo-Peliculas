@@ -11,29 +11,14 @@
     <title>Pelicula</title>
 </head>
 <body>
-    {%block content%}
+    {%block detalle%}
     <div class ="detalle-pelicula">
         <div class ="card-pelicula">
-            <div class="card-pelicula-izquierda">
-                <img src="/media/{{pelicula.imagen}}" class="card-pelicula-imagen" alt="Sin imagen">
-            </div>
-            <div class= "card-pelicula-derecha">
-                <p class= "card-pelicula-texto"> Director: {{object.director}} </p>
-                    <p class= "card-pelicula-texto"> Elenco: 
-                    {%for actor in object.actores.all%}
-                        {{actor.nombre}} {{actor.apellido}},
-                    {% endfor %} </p>
-                <p class="card-pelicula-texto"> Resumen: 
-                    {{object.resumen}}
-                </p>
-                <p class="card-pelicula-texto">
-                    {%for categoria in object.categorias.all%}
-                       <a href="#" class="btn btn-secondary"> {{categoria.nombre}}</a>
-                    {%endfor%}
-                </p>
+            <img src="/media/{{pelicula.imagen}}" class="card-pelicula-imagen" alt="Sin imagen">
+            <div class= "card-pelicula-contenido">
+                <span class="card-pelicula-titulo"> {{object.titulo}} ({{object.fecha_lanzamiento.year}}) </span>
                 {#Para mejorar#}
-                <p class= "card-pelicula-texto"> Puntuación: </p>
-                <div class="estrellas"> 
+                <span class="estrellas"> 
                     {%if puntaje == 1%}
                         <i class="bi bi-star-fill"></i>
                     {%elif puntaje == 2%}
@@ -55,9 +40,71 @@
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
                     {%endif%}
-                </div>
+                </span>
+                <p></p>
+                <p class= "card-pelicula-texto"> Director: <a href="{%url 'director-detail' object.director.pk %}"> {{object.director}}</a> </p>
+                    <p class= "card-pelicula-texto"> Elenco: 
+                    {%for actor in object.actores.all%}
+                        <a href="{%url 'actor-detail' actor.pk%}"> {{actor.nombre}} {{actor.apellido}}</a>,
+                    {% endfor %} </p>
+                <p class="card-pelicula-texto"> Resumen: 
+                    {{object.resumen}}
+                </p>
+                <p class="card-pelicula-texto">
+                    {%for categoria in object.categorias.all%}
+                       <a href="{%url 'peliculas-categoria' categoria.pk %}" class="btn btn-secondary"> {{categoria.nombre}}</a>
+                    {%endfor%}
+                </p>
             </div>
         </div>
+    </div>
+    {%endblock%}
+    {%block criticas%}    
+    <div class="detalle-pelicula"> 
+        <div class="container-criticas">
+            <h2> Criticas recientes de usuarios</h2>
+            {%if object.criticas_habilitadas.count == 0 %}
+                <p> Sin reseñas aún </p>
+            {%else%}
+            <h4> <a class="titulo-link" href="{%url 'critica-list' object.pk%}"> Más criticas > </a> </h4>
+                {%for critica in criticas_recientes%}
+                    <div class="criticas-lista">
+                        <li class="li-critica">    
+                            <div class="critica-wrap"> 
+                                <div class="critica-izquierda">
+                                    <div class="critica-autor"> {{critica.nombre}} </div>
+                                </div>
+                                <div class="critica-derecha">
+                                    <span class="critica-pelicula"> {{critica.pelicula}} </span>
+                                    <span class="bi bi-star-fill">
+                                        <span class="critica-puntaje"> {{critica.puntaje}} / 5  </span>
+                                    </span>
+                                    <div class="critica-comentario">
+                                        {{critica.comentario}}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                {%endfor%}
+            {%endif%}
+        </div>
+    </div>
+    {%endblock%}
+    {% block crear_critica %}
+    <div class="detalle-pelicula">
+            <div class="crear-critica">
+                <h2 class="texto-titulo"> Agregar Critica</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <p class="texto-contenido"> Nombre:{{form.nombre}} </p>
+                        <p class="texto-contenido"> Mail: {{form.email}}</p>
+                        <p class="texto-contenido">Comentario: {{form.comentario}}</p>
+                        <p class="texto-contenido">Puntaje:{{form.puntaje}}</p>
+                    </div>  
+                    <button type="submit" class="btn btn-primary"> Enviar </button>
+                </form>
+            </div>
     </div>
     {%endblock%}
 </body>

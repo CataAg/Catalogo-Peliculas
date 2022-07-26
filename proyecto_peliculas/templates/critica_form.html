@@ -1,0 +1,47 @@
+{%extends "home.html"%}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'principal.css' %}">
+    <title></title>
+</head>
+<body>
+    {% block content %}
+    <h1> Nueva Critica </h1>
+    <br>
+    <div class="container">
+        <form action= "" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+            <div class="form-row">
+                <div class="col">
+                    <h3> Nombre</h3>
+                    {{form.nombre}}
+                </div> 
+                <div class="col">
+                    <h3> Email</h3>
+                    {{form.email}}   
+                </div>
+            </div>
+            <br>
+            <h3>Comentario</h3>
+            {{form.comentario}}
+            <br>
+            <h3>Puntaje</h3>
+            {{form.puntaje}}
+            <br>
+            <h3>Pelicula</h3>
+            {{form.pelicula}}
+            <br>
+            <input type="submit" name = "submit" value = "Enviar">
+        </form>
+    </div>
+    {%endblock%}
+</body>
+
+</html>

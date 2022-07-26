@@ -19,12 +19,24 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
                 <a class="nav-item nav-link" href= "{%url "home" %}"> Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="{%url "home"%}" >Peliculas</a>
+                <a class="nav-item nav-link" href="{%url "pelicula-list" %}" >Peliculas</a>
+                <a class="nav-item nav-link" href="{%url "actor-list" %}" >Actores</a>
+                <a class="nav-item nav-link" href="{%url "categorias" %}" >Categorias</a>
               </div>
             </div>
         </nav>
       </header>
     {%block content%}
+    {%endblock%}
+    {%block detalle%}
+    {%endblock%}
+    {%block header_criticas%}
+    {%endblock%}
+    {%block criticas%}
+    {%endblock%}
+    {%block categorias%}
+    {%endblock%}
+    {%block crear_critica%}
     {%endblock%}
 </body>
 </html>

@@ -15,15 +15,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from catalogo.views import PeliculaDetailView,PeliculaTemplateView, ActorDetailView
-from django.conf import settings
 from django.conf.urls.static import static
+from django.conf import settings
+from catalogo.views import PeliculaView,PeliculaDetailView,PeliculaTemplateView,PeliculaListView
+from catalogo.views import ActorDetailView,ActorListView, DirectorDetailView
+from catalogo.views import CriticaListView, CategoriaTemplateView, BusquedaView, CategoriaListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("actor/<int:pk>/",ActorDetailView.as_view(),name="actor-detail"),
-    path("pelicula/<int:pk>/",PeliculaDetailView.as_view(),name="pelicula-detail"),
+    path("director/<int:pk>/",DirectorDetailView.as_view(),name="director-detail"),
+    path("actores/",ActorListView.as_view(),name="actor-list"),
+    
+    #path("pelicula/<int:pk>/agregar-critica/",CriticaFormView.as_view()),
+    
+    path("pelicula/<int:pk>/",PeliculaView.as_view(),name="pelicula-detail"),
     path("",PeliculaTemplateView.as_view(),name="home"),
+    path("busqueda/",BusquedaView.as_view(),name="search-result"),
+    path("peliculas/",PeliculaListView.as_view(),name="pelicula-list"),
+
+    path("pelicula/<int:pk>/criticas/",CriticaListView.as_view(),name="critica-list"),
+    path("categorias/",CategoriaTemplateView.as_view(),name="categorias"),
+    path("categoria/<int:pk>/",CategoriaListView.as_view(),name="peliculas-categoria"),
+
     #path("pelicula/<slug:titulo>/",PeliculaDetailView.as_view(),name="pelicula-detail"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

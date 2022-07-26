@@ -57,6 +57,10 @@ class Pelicula(models.Model):
     def __str__(self):
         return self.titulo + " (" + str(self.fecha_lanzamiento.year) + ")"
 
+    #Mostrar solo las criticas habilitadas en la seccion de criticas del detalle de Pelicula
+    def criticas_habilitadas(self):
+        return self.criticas.filter(habilitado=True)
+
 class Critica(models.Model):
     nombre = models.CharField(max_length=100)
     email = models.EmailField()
@@ -76,6 +80,7 @@ class Critica(models.Model):
         if self.pelicula.criticas.count() > 1:
             self.pelicula.puntaje = self.pelicula.get_puntaje()
         super(Critica,self).save(*args,**kwargs)
+
 
 
 

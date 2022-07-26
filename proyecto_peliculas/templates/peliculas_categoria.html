@@ -1,0 +1,77 @@
+{% extends "home.html" %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+    <title>Categoria</title>
+</head>
+<body>
+    {%block content%}
+    <div class="container-resultados">
+        <h4>{{categoria.nombre}}</h4>
+        <table class="resultados">
+        {%for pelicula in peliculas%}
+        <tbody>
+            <tr class="resultado">
+                <td> 
+                    <a href="{%url 'pelicula-detail' pelicula.pk%}" >
+                        <img src="/media/{{pelicula.imagen}}" class="resultado-imagen"> 
+                    </a> 
+                </td>
+                <td class="resultado-texto"> 
+                    <a href="{%url 'pelicula-detail' pelicula.pk%}"> {{pelicula.titulo}} ({{pelicula.fecha_lanzamiento.year}}) </a> 
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    {% if is_paginated %}
+    <nav aria-label="...">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item"> 
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                </li>
+            {% else %}
+            <li class="page-item disabled"> 
+                <span class="page-link">Anterior</span>
+                <a href=""> </a>
+            </li>
+            {% endif %}
+            {% for p in page_obj.paginator.page_range %}
+                {%if p == page_obj.number%}
+                    <li class="page-item active">
+                        <a href="?page={{ p }}">
+                            <span class="page-link">{{ p }}</span>
+                        </a>
+                    </li>
+                {%else%}
+                    <li class="page-item">
+                        <a href="?page={{ p }}">
+                            <span class="page-link">{{ p }}</span>
+                        </a>
+                    </li> 
+                {%endif%}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class= "page-item"> 
+                    <a href="?page={{ page_obj.next_page_number }}">
+                    <span class="page-link"> Siguiente </span></a>
+                <li>
+            {% else %}
+                <li class="page-item disabled"> 
+                    <span class="page-link">Siguiente</span>
+                    <a class=href=""></a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+{%endblock%}
+</body>
+</html>

@@ -1,0 +1,60 @@
+{% extends 'home.html' %}
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'principal.css' %}">
+    <title>Criticas</title>
+</head>
+<body>
+    {%block header_criticas%}    
+    <div class="detalle-pelicula"> 
+        <div class="criticas-header">
+            <a href="{%url 'pelicula-detail' object.pk%}">
+                <img src="/media/{{object.imagen}}" class="criticas-header-imagen" alt="Sin imagen">
+            </a>
+            <div class="criticas-header-contenido">
+               <a href="{%url 'pelicula-detail' object.pk%}">
+                <p class="texto-titulo"> {{object.titulo}} ({{object.fecha_lanzamiento.year}}) </p>
+                </a>
+                <p class="texto-titulo"> Reseñas de usuarios </p>
+            </div>
+        </div>
+    </div>
+    {%endblock%}
+    {%block criticas%}    
+    <div class="detalle-pelicula"> 
+        <div class="container-criticas">
+            <h2> Criticas de usuarios </a> </h2>
+            {%if object.criticas.all.count == 0 %}
+                <p> Sin reseñas aún </p>
+            {%else%}
+                {%for critica in criticas%} 
+                    <div class="criticas-lista">
+                        <li class="li-critica">    
+                            <div class="critica-wrap"> 
+                                <div class="critica-izquierda">
+                                    <div class="critica-autor"> {{critica.nombre}} </div>
+                                </div>
+                                <div class="critica-derecha">
+                                    <span class="critica-pelicula"> {{critica.pelicula}} </span>
+                                    <span class="bi bi-star-fill">
+                                        <span class="critica-puntaje"> {{critica.puntaje}} / 5  </span>
+                                    </span>
+                                    <div class="critica-comentario">
+                                        {{critica.comentario}}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                {%endfor%}
+            {%endif%}
+        </div>
+    </div>
+    {%endblock%}
+</body>
+</html>

@@ -1,0 +1,1 @@
+from .critica_form import CriticaForm

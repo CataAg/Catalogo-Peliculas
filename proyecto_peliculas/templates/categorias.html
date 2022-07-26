@@ -8,24 +8,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
-    <title>Actor</title>
+    <title>Categorias</title>
 </head>
 <body>
-    {%block content%}
-    <h1> Actor: </h1>
-    <div class="detalle-persona">
-        <tr>
-            <td class="detalle-header">
-                <span class="texto-titulo"> {{object.nombre}} {{object.apellido}} </span>
-                <span class="texto-chico">actor </span>
-            </td>
-        </tr>
-        <div></div>
-        <tr>
-            <td class="detalle-persona-imagen">
-                <img src = "/media/{{object.foto}}" alt="{{object.nombre}} {{object.apellido}}" >
-            </td>
-        </tr>
+    {%block categorias%}
+    <div class="container">
+        <div class="grilla">
+            {%for categoria in categorias%}
+                <div class="card-categoria"> 
+                    <a href="{%url 'peliculas-categoria' categoria.pk%}"> {{categoria.nombre}}</a>
+                </div>
+            {%endfor%}
+        </div>
     </div>
     {%endblock%}
 </body>
