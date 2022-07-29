@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, DetailView, View
 from catalogo.models import Categoria
 
 class CategoriaTemplateView(TemplateView):
@@ -15,15 +15,14 @@ class CategoriaListView(DetailView):
     model = Categoria
     template_name = "peliculas_categoria.html"
 
-    def get_object(self):
-        return super().get_object()
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         categoria = self.get_object()
-        peliculas = categoria.pelicula_set.all()
+        peliculas = categoria.peliculas.all()
         context["peliculas"] = peliculas
         return context
+
+    
     
 
 

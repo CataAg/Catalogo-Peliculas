@@ -12,7 +12,7 @@
 </head>
 <body>
     {%block detalle%}
-    <div class ="detalle-pelicula">
+    <div class ="detalle">
         <div class ="card-pelicula">
             <img src="/media/{{pelicula.imagen}}" class="card-pelicula-imagen" alt="Sin imagen">
             <div class= "card-pelicula-contenido">
@@ -60,13 +60,13 @@
     </div>
     {%endblock%}
     {%block criticas%}    
-    <div class="detalle-pelicula"> 
+    <div class="detalle"> 
         <div class="container-criticas">
-            <h2> Criticas recientes de usuarios</h2>
+            <h2 class="texto-titulo"> Críticas recientes de usuarios</h2>
             {%if object.criticas_habilitadas.count == 0 %}
-                <p> Sin reseñas aún </p>
+                <p> Sin críticas aún </p>
             {%else%}
-            <h4> <a class="titulo-link" href="{%url 'critica-list' object.pk%}"> Más criticas > </a> </h4>
+            <h4 class="texto-subtitulo"> <a class="titulo-link" href="{%url 'critica-list' object.pk%}"> Más críticas > </a> </h4>
                 {%for critica in criticas_recientes%}
                     <div class="criticas-lista">
                         <li class="li-critica">    
@@ -91,9 +91,9 @@
     </div>
     {%endblock%}
     {% block crear_critica %}
-    <div class="detalle-pelicula">
+    <div class="detalle">
             <div class="crear-critica">
-                <h2 class="texto-titulo"> Agregar Critica</h2>
+                <h2 class="texto-titulo"> Agregar Crítica</h2>
                 <form method="POST">
                     {% csrf_token %}
                     <div class="form-group">

@@ -1,0 +1,44 @@
+{%extends 'home.html'%}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+    <title>{{object.tipo_persona}}</title>
+</head>
+<body>
+    {%block persona_detalle%}
+    <div class="detalle">
+        <div class="card-persona">
+            <img src="/media/{{object.foto}}" class="persona-imagen" alt="{{object.nombre}} {{object.apellido}}">
+            <div class="persona-contenido">
+                <div class="persona-header">
+                    <h1 class="texto-titulo"> {{object.nombre}} {{object.apellido}} </h1>
+                    <p class="texto-chico"> {{object.tipo_persona}} </p>
+                </div>
+                <div class="persona-info">
+                    <p class="texto-contenido"> {{object.biografia}}</p>
+                    <span class="texto-contenido"> 
+                        Nacimiento: {{object.fecha_nacimiento}} {{object.nacionalidad.unicode_flag}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="persona-filmografia">
+            <h1 class="texto-titulo">  Filmografía destacada </h1>
+            <div class="filmografia-imagenes">
+                {%for pelicula in peliculas%}
+                    <a href="{%url 'pelicula-detail' pelicula.pk%}" >
+                        <img src="/media/{{pelicula.imagen}}" class="filmografia-imagen"> 
+                    </a> 
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+    {%endblock%}
+</body>
+</html>

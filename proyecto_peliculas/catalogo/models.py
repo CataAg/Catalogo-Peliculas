@@ -9,10 +9,14 @@ class Actor(models.Model):
     foto = models.ImageField(upload_to="media/actores")
     fecha_nacimiento = models.DateField()
     nacionalidad = CountryField() #libreria para facilitar la carga de los paises
-    biografia = models.CharField(max_length=300,null=True,blank = True)
+    biografia = models.CharField(max_length=500,null=True,blank = True)
 
     def __str__(self):
         return self.nombre + ' ' + self.apellido
+
+    #para subtitulo de categoria para el template "persona-detail"
+    def tipo_persona(self):
+        return self.__class__.__name__
  
 class Director(models.Model):
     nombre = models.CharField(max_length=100)
@@ -20,10 +24,14 @@ class Director(models.Model):
     foto = models.ImageField(upload_to="media/directores")
     fecha_nacimiento = models.DateField()
     nacionalidad = CountryField()
-    biografia = models.CharField(max_length=300,null=True,blank=True)
+    biografia = models.CharField(max_length=500,null=True,blank=True)
 
     def __str__(self):
         return self.nombre + ' ' + self.apellido
+
+    #para subtitulo de categoria para el template "persona-detail"
+    def tipo_persona(self):
+        return self.__class__.__name__
     
 class Categoria(models.Model):
     nombre = models.CharField(max_length=50)
@@ -35,10 +43,10 @@ class Pelicula(models.Model):
     titulo = models.CharField(max_length=100)
     resumen= models.CharField(max_length=300)
     imagen = models.ImageField(upload_to="media/peliculas",null = True)
-    actores = models.ManyToManyField(Actor)
-    director = models.ForeignKey(Director,on_delete=models.CASCADE)
+    actores = models.ManyToManyField(Actor,related_name="peliculas")
+    director = models.ForeignKey(Director,on_delete=models.CASCADE,related_name="peliculas")
     fecha_lanzamiento = models.DateField()
-    categorias = models.ManyToManyField(Categoria)
+    categorias = models.ManyToManyField(Categoria,related_name="peliculas")
     puntaje = models.IntegerField(default=1)
 
     def get_puntaje(self):

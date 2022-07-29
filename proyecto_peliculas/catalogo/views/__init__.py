@@ -1,6 +1,6 @@
 from .actor_views import ActorDetailView, ActorListView
-from .pelicula_views import PeliculaView,PeliculaDetailView,PeliculaTemplateView, PeliculaListView
-from .busqueda_views import BusquedaView
-from .director_views import DirectorDetailView
-from .critica_views import CriticaListView
+from .director_views import DirectorDetailView, DirectorListView
+from .pelicula_views import PeliculaView,PeliculaTemplateView, PeliculaListView
 from .categoria_views import CategoriaTemplateView, CategoriaListView
+from .critica_views import CriticaListView
+from .busqueda_views import BusquedaView

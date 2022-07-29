@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="{% static 'principal.css' %}">
-    <title>Criticas</title>
+    <title>{%block title %} Críticas {%endblock%}</title>
 </head>
 <body>
     {%block header_criticas%}    
-    <div class="detalle-pelicula"> 
+    <div class="detalle"> 
         <div class="criticas-header">
             <a href="{%url 'pelicula-detail' object.pk%}">
                 <img src="/media/{{object.imagen}}" class="criticas-header-imagen" alt="Sin imagen">
@@ -21,17 +21,17 @@
                <a href="{%url 'pelicula-detail' object.pk%}">
                 <p class="texto-titulo"> {{object.titulo}} ({{object.fecha_lanzamiento.year}}) </p>
                 </a>
-                <p class="texto-titulo"> Reseñas de usuarios </p>
+                <p class="texto-subtitulo"> Director: {{object.director}} </p>
             </div>
         </div>
     </div>
     {%endblock%}
     {%block criticas%}    
-    <div class="detalle-pelicula"> 
+    <div class="detalle"> 
         <div class="container-criticas">
-            <h2> Criticas de usuarios </a> </h2>
+            <h2 class="texto-titulo"> Críticas de usuarios </h2>
             {%if object.criticas.all.count == 0 %}
-                <p> Sin reseñas aún </p>
+                <p> Sin críticas aún </p>
             {%else%}
                 {%for critica in criticas%} 
                     <div class="criticas-lista">

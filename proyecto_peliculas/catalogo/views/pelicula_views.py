@@ -18,12 +18,13 @@ class PeliculaDetailView(DetailView):
         #El puntaje se envia por context para poder vincularlo con las estrellas en el template
         context["puntaje"] = puntaje
         context["criticas_recientes"] = criticas
-        #Asigno la pelicula actual (que recibi por get_object() como la pelicula para el form de critica
+        #Asigno la pelicula actual, que recibi por get_object(), como la pelicula para el form de critica
         context["form"] = CriticaForm(initial={"pelicula":pelicula})
         categorias = pelicula.categorias
         context["categorias"] = categorias
         return context
 
+#Para poder tener la seccion "agregar critica" dentro del detalle de pelicula
 class PeliculaCriticaView(SingleObjectMixin,FormView):
     template_name = "pelicula_detail.html"
     form_class = CriticaForm
@@ -45,7 +46,7 @@ class PeliculaView(View):
         view = PeliculaCriticaView.as_view()
         return view(request, *args, **kwargs)
 
-
+#vista grilla principal
 class PeliculaTemplateView(TemplateView):
     template_name= "grilla.html"
 
@@ -55,7 +56,8 @@ class PeliculaTemplateView(TemplateView):
         peliculas = Pelicula.objects.all().order_by("-puntaje")[:12]
         context["peliculas"] = peliculas
         return context
-
+        
+#vista seccion peliculas
 class PeliculaListView(ListView):
     model = Pelicula
     paginate_by = 10

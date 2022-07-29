@@ -8,20 +8,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
-    <title>{%block title %} Actores {%endblock%}</title>
+    <title>{%block title %} Directores {%endblock%}</title>
 </head>
 <body>
     {%block content%}
     <div class="container-resultados">
-        <h4 class="texto-titulo">Actores</h4>
+        <h4 class="texto-titulo">Directores</h4>
         <div class="resultados-lista">
-            {%for actor in page_obj%}
+            {%for director in page_obj%}
                 <li class="resultado">
-                    <a href="{%url 'actor-detail' actor.pk%}" >
-                        <img src="/media/{{actor.foto}}" class="resultado-imagen"> 
+                    <a href="{%url 'director-detail' director.pk%}" >
+                        <img src="/media/{{director.foto}}" class="resultado-imagen"> 
                     </a> 
                     <span class="resultado-texto"> 
-                        <a href="{%url 'actor-detail' actor.pk%}"> {{actor.nombre}} {{actor.apellido}} </a> 
+                        <a href="{%url 'director-detail' director.pk%}"> {{director.nombre}} {{director.apellido}} </a> 
                     </span>
                 </li>
             {%endfor%}

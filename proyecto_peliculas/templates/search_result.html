@@ -13,7 +13,66 @@
 <body>
     {%block content%}
     <div class="container-resultados">
-        <h4 class="texto-titulo"> Resultados para " <span class="item-busqueda"> {{busqueda}}</span> <h4>
+        <h4 class="texto-titulo"> Resultados para <span> "{{query}}" </span> </h4>
+            <!--Checkeo si hay elementos en el query de actores-->
+            {%if actores%}
+                <h3 class="texto-subtitulo"> Actores </h3>
+                <div class="resultados-lista">
+                    {%for actor in actores%}
+                        <li class="resultado">
+                            <a href="{%url 'actor-detail' actor.pk%}" >
+                                <img src="/media/{{actor.foto}}" class="resultado-imagen"> 
+                            </a> 
+                            <span class="resultado-texto"> 
+                                <a href="{%url 'actor-detail' actor.pk%}"> {{actor.nombre}} {{actor.apellido}} </a> 
+                            </span>
+                        </li>
+                    {%endfor%}
+                </div>
+            <!--Checkeo si hay elementos en el query de directores-->
+            {%elif directores%}
+            <h3 class="texto-subtitulo"> Directores </h3>
+            <div class="resultados-lista">
+                {%for director in directores%}
+                    <li class="resultado">
+                        <a href="{%url 'director-detail' director.pk%}" >
+                            <img src="/media/{{director.foto}}" class="resultado-imagen"> 
+                        </a> 
+                        <span class="resultado-texto"> 
+                            <a href="{%url 'director-detail' director.pk%}"> {{director.nombre}} {{director.apellido}} </a> 
+                        </span>
+                    </li>
+                {%endfor%}
+            </div>
+            <!--Checkeo si hay elementos en el query de peliculas-->
+            {%elif peliculas%}
+            <h3 class="texto-subtitulo"> Peliculas </h3>
+            <div class="resultados-lista">
+                {%for pelicula in peliculas%}
+                    <li class="resultado">
+                        <a href="{%url 'pelicula-detail' pelicula.pk%}" >
+                            <img src="/media/{{pelicula.imagen}}" class="resultado-imagen"> 
+                        </a> 
+                        <span class="resultado-texto"> 
+                            <a href="{%url 'pelicula-detail' pelicula.pk%}"> {{pelicula.titulo}} ({{pelicula.fecha_lanzamiento.year}}) </a> 
+                        </span>
+                    </li>
+                {%endfor%}
+            </div>
+            {%elif categorias%}
+            <h3 class="texto-subtitulo"> Categorías </h3>
+            <div class="resultados-lista">
+                {%for categoria in categorias%}
+                    <li class="resultado">
+                        <a href="{%url 'peliculas-categoria' categoria.pk%}" > {{categoria.nombre}} </a> 
+                    </li>
+                {%endfor%}
+            </div>
+            {%else%}
+            <div class="resultado-lista">
+                <p class="texto-contenido"> Sin resultados </p>
+            </div>
+            {%endif%}
     </div>
     {%endblock%}
 </body>
