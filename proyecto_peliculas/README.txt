@@ -6,6 +6,7 @@ Cambios y agregados desde la ultima entrega:
 - Pagina detalle de pelicula con reseñas recientes y el formulario para enviar una nueva reseña.
 - Pagina detalle de actor y director.
 - Links a listados de peliculas, actores y categorias desde la barra de menú
+- Barra de busquedas para actores, directores, películas y categorías.
 
 En settings.py se cambio la configuración de idioma para mostrar las fechas en español:
 LANGUAGE_CODE = 'es-ar'
